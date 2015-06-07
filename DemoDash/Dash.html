@@ -511,6 +511,20 @@
     <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="/signalr/hubs" type="text/javascript"></script>
     
+    
+    <script type="text/javascript">
+    $(function () {
+        var vendaHub = $.connection.venda;
+        vendaHub.client.AlertarNovaVenda = function (produto) {
+            $('#produtos').append("<a href=\"#\" class=\"list-group-item\">" +
+                 "<span class=\"badge\">7 minutes ago</span>" +
+                 "<i class=\"fa fa-fw fa-comment\"></i>" + produto +
+                 "</a>");
+        }
+
+        $.connection.hub.start();
+    });
+    </script>
 
    
 

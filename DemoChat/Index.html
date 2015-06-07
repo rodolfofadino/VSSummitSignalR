@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+</head>
+<body>
+    
+    Nome:
+    <input type="text" id="nome" />
+    <br />
+    Mensagem:
+    <input type="text" id="mensagem" />
+    <br />
+    <input type="button" value="enviar" id="enviar" />
+
+    <ul id="conversa"></ul>
+    
+    <script>
+        
+        $(function () {
+            var chatHub = $.connection.chat;
+
+            chatHub.client.transmitirMensagem = function (mensagem, nome) {
+                $('#conversa').append("<li>" + nome + " - " + mensagem + "</li>");
+            }
+
+            $("#enviar").click(function () {
+                chatHub.server.enviarMensagem($('#mensagem').val(), $('#nome').val());
+            });
+
+            $.connection.hub.start();
+        });
+    </script>
+
+
+</body>
+</html>
